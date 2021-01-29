@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity{
         activityMainBinding.clearButton.setVisibility(View.VISIBLE);
 
         // Resample the saved image to fit the ImageView
-        mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
+        mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath, this);
 
 
         // Detect the faces and overlay the appropriate emoji
