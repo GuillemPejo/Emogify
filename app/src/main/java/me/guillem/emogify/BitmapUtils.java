@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.view.WindowManager;
-import android.view.WindowMetrics;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;

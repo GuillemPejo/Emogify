@@ -1,29 +1,25 @@
 package me.guillem.emogify;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.os.Bundle;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.IOException;
 
 import me.guillem.emogify.databinding.ActivityMainBinding;
-import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -48,8 +44,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(view);
 
 
-        // Set up Timber
-        Timber.plant(new Timber.DebugTree());
     }
 
     /**
@@ -132,6 +126,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // If the image capture activity was called and was successful
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // Process the image and set it to the TextView
             processAndSetImage();
@@ -157,9 +152,9 @@ public class MainActivity extends AppCompatActivity{
         // Resample the saved image to fit the ImageView
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath, this);
 
-
+        mResultsBitmap = Emojifier.detectFace(this, mResultsBitmap);
         // Detect the faces and overlay the appropriate emoji
-        mResultsBitmap = Emojifier.detectFacesandOverlayEmoji(this, mResultsBitmap);
+        //mResultsBitmap = Emojifier.detectFacesandOverlayEmoji(this, mResultsBitmap);
 
         // Set the new bitmap to the ImageView
         activityMainBinding.imageView.setImageBitmap(mResultsBitmap);
