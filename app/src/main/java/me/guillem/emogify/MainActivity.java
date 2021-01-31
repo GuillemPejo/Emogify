@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import me.guillem.emogify.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity{
 
 
@@ -42,6 +43,26 @@ public class MainActivity extends AppCompatActivity{
         activityMainBinding =ActivityMainBinding.inflate(getLayoutInflater());
         View view = activityMainBinding.getRoot();
         setContentView(view);
+
+        activityMainBinding.emojifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // If you do not have permission, request it
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_STORAGE_PERMISSION);
+                } else {
+                    // Launch the camera if the permission exists
+                    launchCamera();
+                }
+            }
+        });
+
+
 
 
     }
